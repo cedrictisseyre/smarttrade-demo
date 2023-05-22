@@ -40,6 +40,9 @@ dependencies {
 
     api 'org.springdoc:springdoc-openapi-ui'
 
+    testImplementation ('com.github.javafaker:javafaker:1.0.2') { exclude module: 'org.yaml' }
+    testImplementation group: 'org.yaml', name: 'snakeyaml', version: '1.26'
+
     testImplementation 'org.mockito:mockito-core'
     testImplementation 'org.mockito:mockito-inline'
     testImplementation 'org.assertj:assertj-core'

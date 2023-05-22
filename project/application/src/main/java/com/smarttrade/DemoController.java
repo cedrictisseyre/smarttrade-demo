@@ -20,14 +20,14 @@ public class DemoController {
     public ResponseEntity<String> demo() {
         System.out.println("Demo called on DemoController");
 
-        var buyOrder = randomBuyOrder();
+        var buyOrder = aRandomBuyOrder();
 
         buyOrderPlacer.placeACurrencyBuyOrder(buyOrder);
 
         return ResponseEntity.ok("Everything worked fine");
     }
 
-    private BuyOrder randomBuyOrder() {
+    public static BuyOrder aRandomBuyOrder() {
         Faker faker = new Faker();
 
         return new BuyOrder(
@@ -35,13 +35,7 @@ public class DemoController {
             faker.options().option(Currency.class),
             Integer.valueOf(faker.number().randomDigit()),
             faker.company().name(),
-            randomCallbackUrl()
+            "http://%s/%s".formatted(faker.internet().domainName(), faker.internet().slug())
         );
-    }
-
-    public String randomCallbackUrl() {
-        Faker faker = new Faker();
-
-        return "http://%s/%s".formatted(faker.internet().domainName(), faker.internet().slug());
     }
 }
