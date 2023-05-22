@@ -1,0 +1,163 @@
+plugins {
+    id 'org.springframework.boot'
+    id 'io.spring.dependency-management'
+    id 'java-library'
+    id "org.flywaydb.flyway" version '8.5.12'
+    id 'nu.studer.jooq' version '7.1.1'
+}
+
+dependencies {
+    api 'io.vavr:vavr'
+    api 'io.vavr:vavr-gson'
+    api 'org.springframework.boot:spring-boot-starter-web'
+    api 'org.springframework.boot:spring-boot-starter-actuator'
+    api 'org.springframework:spring-beans'
+    api 'org.springframework:spring-context'
+    api 'javax.inject:javax.inject:1'
+    api 'io.opentracing:opentracing-api'
+    api 'io.opentracing:opentracing-util'
+    api 'com.datadoghq:dd-trace-api'
+
+    api 'org.decimal4j:decimal4j'
+
+    api 'io.github.resilience4j:resilience4j-spring-boot2'
+    api 'io.github.resilience4j:resilience4j-micrometer'
+
+    api 'com.google.flogger:flogger'
+    api 'com.google.flogger:flogger-system-backend'
+    api 'com.google.flogger:flogger-slf4j-backend'
+
+    api 'org.jooq:jooq'
+    api 'org.postgresql:postgresql'
+    api 'org.flywaydb:flyway-core'
+    api 'org.springframework.boot:spring-boot-starter-jooq'
+    api 'org.springframework.boot:spring-boot-starter-jdbc'
+    jooqGenerator 'org.postgresql:postgresql'
+
+    api 'org.redisson:redisson-spring-boot-starter'
+
+    api 'org.springdoc:springdoc-openapi-ui'
+
+    testImplementation ('com.github.javafaker:javafaker:1.0.2') { exclude module: 'org.yaml' }
+    testImplementation group: 'org.yaml', name: 'snakeyaml', version: '1.26'
+
+    testImplementation 'org.mockito:mockito-core'
+    testImplementation 'org.mockito:mockito-inline'
+    testImplementation 'org.assertj:assertj-core'
+    testImplementation 'org.assertj:assertj-vavr'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    testImplementation 'org.testcontainers:postgresql'
+    testImplementation 'org.testcontainers:testcontainers'
+    testImplementation 'org.testcontainers:junit-jupiter'
+    testImplementation 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+}
+
+dependencyManagement {
+    dependencies {
+        dependency 'org.mockito:mockito-core:4.8.1'
+    }
+}
+
+allprojects {
+    ext.failedTests = []
+
+    tasks.withType(JavaCompile).configureEach {
+        it.options.compilerArgs.add("--enable-preview")
+    }
+
+    tasks.withType(Test) {
+        afterTest { TestDescriptor descriptor, TestResult result ->
+            if (result.resultType == TestResult.ResultType.FAILURE) {
+                failedTests << ["${descriptor.className}::${descriptor.name}"]
+            }
+        }
+    }
+
+    gradle.buildFinished {
+        if (!failedTests.empty) {
+            println "Failed tests:"
+            failedTests.each { failedTest ->
+                println failedTest
+            }
+            println ""
+        }
+    }
+}
+
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+}
+
+test {
+    jvmArgs(['--enable-preview'])
+    useJUnitPlatform()
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs 'src/generated/java/jooq/metalor/'
+        }
+    }
+}
+
+flyway {
+    driver = 'org.postgresql.Driver'
+    url = 'jdbc:postgresql://[::1]:5432/postgres?user=postgres&password=sunday'
+    schemas = ['metalor']
+    user = 'postgres'
+    password = 'sunday'
+}
+
+jooq {
+    version = dependencyManagement.importedProperties['jooq.version']
+    edition = nu.studer.gradle.jooq.JooqEdition.OSS
+    configurations {
+        metalor {
+            generateSchemaSourceOnCompilation = false
+            generationTool {
+                jdbc {
+                    driver = 'org.postgresql.Driver'
+                    url = 'jdbc:postgresql://[::1]:5432/postgres?user=postgres&password=sunday'
+                }
+
+                generator {
+                    name = 'org.jooq.codegen.JavaGenerator'
+                    strategy {
+                        name = 'org.jooq.codegen.DefaultGeneratorStrategy'
+                    }
+                    database {
+                        name = 'org.jooq.meta.postgres.PostgresDatabase'
+                        excludes = 'flyway_schema_history'
+                        inputSchema = 'metalor'
+                    }
+                    generate {
+                        relations = true
+                        deprecated = false
+                        records = true
+                        fluentSetters = true
+                    }
+                    target {
+                        packageName = 'com.smarttrade.demo.metalor.infrastructure.sql'
+                        directory = "$projectDir/src/generated/java/jooq/metalor/"
+                    }
+                }
+            }
+
+        }
+    }
+}
+
+
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17

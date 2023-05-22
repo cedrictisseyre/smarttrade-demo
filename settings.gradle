@@ -1,0 +1,10 @@
+rootProject.name = 'smarttrade-demo'
+
+include ':core'
+project(":core").projectDir = file("project/core")
+
+include ':metalor'
+project(":metalor").projectDir = file("project/metalor")
+
+include ':application'
+project(":application").projectDir = file("project/application")

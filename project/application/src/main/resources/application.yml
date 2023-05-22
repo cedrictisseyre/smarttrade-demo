@@ -1,0 +1,28 @@
+spring:
+  mvc:
+    converters:
+      preferred-json-mapper: gson
+  messages:
+    basename: translations/messages
+    fallback-to-system-locale: false
+  lifecycle:
+    timeout-per-shutdown-phase: 25s
+
+mailer:
+  sendinblue:
+    apiKey: ${SEND_IN_BLUE_API_KEY}
+    templateIds:
+      EN: 162
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+server:
+  shutdown: graceful
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: 'health,info'
