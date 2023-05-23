@@ -46,5 +46,5 @@ docker compose up
 
 - The demo endpoint is here: http://localhost:8080/demo
 - API documentation is here: http://localhost:8080/swagger-ui.html
-
+- Actuator is here: http://localhost:8080/actuator
 - Look at the logs after running demo endpoint

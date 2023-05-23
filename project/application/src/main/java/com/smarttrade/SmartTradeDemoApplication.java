@@ -20,6 +20,7 @@ public class SmartTradeDemoApplication {
     // - Flyway for database migration
     // - Flogger for logs
     // - Swagger for openApi documentation
+    // - Actuator for checking application health (maybe restarted if down by an orchestrator)
     public static void main(String[] args) {
         LogManager.getLogManager().reset();
         SLF4JBridgeHandler.install();
