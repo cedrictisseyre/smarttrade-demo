@@ -1,5 +1,6 @@
 package com.smarttrade.demo.core;
 
+// A much too basic implementation of a Currency
 public enum Currency {
     BTC("Bitcoin"),
     ETH("Ethereum"),

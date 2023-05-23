@@ -8,6 +8,6 @@ import javax.inject.Named;
 public class HttpPlacingCallbacker implements PlacingCallbacker {
     @Override
     public void callback(String url, PlacingResult placingResult) {
-        // TODO: make a real callback here
+        // TODO: make a real callback here, using OkHttp and eventually Retrofit
     }
 }

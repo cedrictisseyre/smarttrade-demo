@@ -20,14 +20,15 @@ public class DemoController {
     public ResponseEntity<String> demo() {
         System.out.println("Demo called on DemoController");
 
+        // Here we are placing a random buy order because we are just trying to demonstrate a principle
         var buyOrder = aRandomBuyOrder();
-
         buyOrderPlacer.placeACurrencyBuyOrder(buyOrder);
 
         return ResponseEntity.ok("Everything worked fine");
     }
 
     public static BuyOrder aRandomBuyOrder() {
+        // Faker is used here to show an example of random, but realistic, data
         Faker faker = new Faker();
 
         return new BuyOrder(

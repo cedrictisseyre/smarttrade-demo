@@ -26,6 +26,7 @@ class HardcodedSdpChooserTest {
         chooser = new HardcodedSdpChooser(List.of(binanceSdp, coinbaseSdp).toJavaSet());
     }
 
+    // A simple example of Parameterized tests
     @ParameterizedTest
     @EnumSource(Currency.class)
     void should_return_Binance_for_any_currency_for_any_other_client_than_metalor(Currency currency) {

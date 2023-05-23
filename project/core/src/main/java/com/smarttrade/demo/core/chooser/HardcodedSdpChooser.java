@@ -17,6 +17,8 @@ public class HardcodedSdpChooser implements SdpChooser {
         this.sdpList = HashSet.ofAll(sdpList);
     }
 
+    // In a real case, we should rely on a strategy stored in a database
+    // but we simplified in this demo to keep easily explorable code
     public Sdp choose(Currency currency, String clientName) {
         var strategy = hardcodedSdpStrategy(clientName);
         var sdpClass = strategy.getSdpClass(currency);

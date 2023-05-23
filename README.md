@@ -47,3 +47,5 @@ docker compose up
 - The REST server will be available at: `127.0.0.1:8080`
 - The demo endpoint is here: http://localhost:8080/demo
 - API documentation is here: http://localhost:8080/swagger-ui.html
+
+- Look at the logs after running demo endpoint

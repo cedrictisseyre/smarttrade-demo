@@ -14,6 +14,12 @@ import java.util.logging.LogManager;
 @ConfigurationPropertiesScan({"com.smarttrade.demo.core"})
 public class SmartTradeDemoApplication {
 
+    // Some standard librairies of the market has been used here for demo purpose
+    // - Gson for json serialization/deserialization
+    // - Jooq (and Hikari) for database access
+    // - Flyway for database migration
+    // - Flogger for logs
+    // - Swagger for openApi documentation
     public static void main(String[] args) {
         LogManager.getLogManager().reset();
         SLF4JBridgeHandler.install();
