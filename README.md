@@ -48,3 +48,9 @@ docker compose up
 - API documentation is here: http://localhost:8080/swagger-ui.html
 - Actuator is here: http://localhost:8080/actuator
 - Look at the logs after running demo endpoint
+
+
+- to run all test
+```shell
+./gradlew test
+```
