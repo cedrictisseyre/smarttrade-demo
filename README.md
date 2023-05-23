@@ -35,7 +35,7 @@ java --version
 - Docker: https://docs.docker.com/engine/install/
 
 
-#### How to run
+### How to run
 
 - Start the local database
 ```shell
@@ -44,7 +44,6 @@ docker compose up
 
 - Run project with the IntelliJ the target `SmarttradeDemoApplication [local]`
 
-- The REST server will be available at: `127.0.0.1:8080`
 - The demo endpoint is here: http://localhost:8080/demo
 - API documentation is here: http://localhost:8080/swagger-ui.html
 
