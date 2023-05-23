@@ -167,3 +167,4 @@ bin/
 storage
 
 **/*/http-client.private.env.json
+/db/
