@@ -34,9 +34,11 @@ dependencies {
     api 'org.flywaydb:flyway-core'
     api 'org.springframework.boot:spring-boot-starter-jooq'
     api 'org.springframework.boot:spring-boot-starter-jdbc'
-    jooqGenerator 'org.postgresql:postgresql'
-
     api 'org.springdoc:springdoc-openapi-ui'
+
+    implementation 'jakarta.inject:jakarta.inject-api:2.0.1'
+
+    jooqGenerator 'org.postgresql:postgresql'
 
     testImplementation ('com.github.javafaker:javafaker:1.0.2') { exclude module: 'org.yaml' }
     testImplementation group: 'org.yaml', name: 'snakeyaml', version: '1.26'

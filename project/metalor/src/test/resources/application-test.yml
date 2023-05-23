@@ -1,8 +1,4 @@
 spring:
-    kafka:
-        properties:
-            bootstrap.servers: localhost:9092
-            schema.registry.url: http://localhost:8081
     datasource:
         url: jdbc:postgresql://[::1]:9999/testcontainer
         driver-class-name: org.postgresql.Driver
