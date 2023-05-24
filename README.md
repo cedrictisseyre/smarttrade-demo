@@ -50,7 +50,7 @@ docker compose up
 - API documentation is here: http://localhost:8080/swagger-ui.html
 - Actuator is here: http://localhost:8080/actuator
 - Look at the logs after running demo endpoint
-
+- The directory http is used in Intellij IDE to launch http request and try the Api
 
 - to run all test
 ```shell
