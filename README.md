@@ -44,7 +44,9 @@ docker compose up
 
 - Run project with the IntelliJ the target `SmarttradeDemoApplication [local]`
 
-- The demo endpoint is here: http://localhost:8080/demo
+- The demo endpoint are here:
+    - http://localhost:8080/buy-order
+    - http://localhost:8080/buy-order/metalor-fr
 - API documentation is here: http://localhost:8080/swagger-ui.html
 - Actuator is here: http://localhost:8080/actuator
 - Look at the logs after running demo endpoint

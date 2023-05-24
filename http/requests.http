@@ -1,2 +1,10 @@
-### Call demo endpoint
-GET {{host}}/demo
+### Call buy order endpoint with a random client name
+GET {{host}}/buy-order
+
+
+### Call buy order endpoint with a specific client name (one with a phone number)
+GET {{host}}/buy-order/metalor-fr
+
+
+### Call buy order endpoint with a specific client name (one without a phone number)
+GET {{host}}/buy-order/metalor-zz
